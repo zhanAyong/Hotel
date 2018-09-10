@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>客户订单查询</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">客户页面</a></li>
+                <ul class="list-style" style="margin-left:10px;">
+                    <li><a href="/kehu">客户预定</a></li>
+                    <li><a href="/kuhufind">客户查询</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">订单查询与确认</h1>
+    <div style="width:600px;margin:10px auto;" id="box">
+        <div>
+            <h4 style="width:150px;margin:5px auto;">订单查询</h4>
+            <div style="width:500px; margin:30px auto;">
+                <p><input type="text" placeholder="输入联系人" id="txt" style="width:300px;height:30px;"><button style="margin-left:50px; background:orange" id="chaxun">查询</button></p>
+            </div>
+        </div>
+        <div class="container" style="margin-left:-320px;">
+            <table class="table  table-striped">
+                <tr>
+                    <th>入住时间</th>
+                    <th>离店时间</th>
+                    <th>房间类型</th>
+                    <th>房间剩余数量</th>
+                    <th>房间价钱</th>
+                    <th>预订数量</th>
+                    <th>入住姓名</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>留言</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="tbody"></tbody>
+            </table>
+            <div id="pagenavbox"></div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    //房间类别渲染
+    $.get("/Kehuleibie",function(data){
+        $.each(data.leibie,function(i,n){
+            // console.log(n.mingcheng)
+            $("<option></option>").html(n.mingcheng).appendTo($("#select1"))
+        })
+    });
+    //查询
+    $("#chaxun").click(function(){
+        $("#tbody").html(" ");
+        var arr=$("#txt").val();
+        $.get("/DingdanYuding"+arr,function(data){
+            if(data.data==-1){
+                alert("没有该订单！")
+                return;
+            }
+            $.each(data.data,function(i,n){
+                $tr=$("<tr></tr>");
+                $("<td></td>").html(n.ruzhu).appendTo($tr);
+                $("<td></td>").html(n.lidian).appendTo($tr);
+                $("<td></td>").html(n.leixing).appendTo($tr);
+                $("<td></td>").html(n.shengyu).appendTo($tr);
+                $("<td></td>").html(n.jiaqian).appendTo($tr);
+                $("<td></td>").html(n.yudingshu).appendTo($tr);
+                $("<td></td>").html(n.xingming).appendTo($tr);
+                $("<td></td>").html(n.lianxiren).appendTo($tr);
+                $("<td></td>").html(n.dianhua).appendTo($tr);
+                $("<td></td>").html(n.liuyan).appendTo($tr);
+                $("<td><input type='button' class='btn btn-danger delbtn' value='删除' data-xh='"+n.dianhua+"'><a href='/xiugaiyuding"+n.dianhua+"'><input type='button' class='btn btn-warning modbtn' value='修改' data-xh='"+n.dianhua+"'></a></td>").appendTo($tr);
+                $tr.appendTo($("#tbody"))
+            })
+        })
+    })
+    //点击删除
+    $("#tbody").delegate(".delbtn","click",function(){
+        if(!confirm("真的要删除嘛？")){
+            return;
+        }
+        var sid=$(this).attr("data-xh");
+        $.ajax({
+            url:"/DelectDingdanxinxi/"+sid,
+            type:"delete",
+            success:function(data){
+                if(data.result==1){
+                    alert("删除成功");
+                    $.post("/addShengyushu/",{
+                        leixing :arr,
+                        yudingshu: brr,
+                    },function(data){
+                        if (data.s==1){
+                            // alert("成功")
+                            $("input").val(" ");
+                            $("textarea").val("");
+                        }
+                    })
+                    window.location.href='/kuhufind'
+                }else{
+                    alert("服务器错误！");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

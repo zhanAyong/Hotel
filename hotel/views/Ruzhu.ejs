@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登录进入的首页</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+    .btn{
+        margin:5px 10px;
+    }
+</style>
+<body>
+<nav>
+    <div class="collapse navbar-collapse" style="width:200px;float:right;margin-top:-50px;">
+        <ul class="nav navbar-nav navbar-right" >
+            <li><a href="javescript:">管理员：<%=result%></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">入住管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showDatangRuzhu">大堂入住</a></li>
+                    <li><a href="/showDingdanRuzhu">订单入住</a></li>
+                </ul>
+                <li><a href="#">退房管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showTuifang">退房管理</a></li>
+                </ul>
+                <li><a href="#">记录查询</a></li>
+                <ul class="list-style">
+                    <li><a href="/showRuzhu">入住记录查询</a></li>
+                </ul>
+                <li><a href="#">房间管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showFangjian">房间信息管理</a></li>
+                </ul>
+                <li><a href="#">房类管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/Gleibie">房间类别管理</a></li>
+                </ul>
+                <li><a href="#">修改密码</a></li>
+                <ul class="list-style">
+                    <li><a href="/showchangepw">修改密码</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">入住记录查询</h1>
+            <div>
+                <h4 style="width:150px;margin:5px auto;">订单查询</h4>
+                <div style="width:500px;margin:30px auto">
+                    <form action="" id="form">
+                        <p><input type="text" placeholder="输入联系人或联系电话" style="width:300px;height:30px;" id="txt" name="xingming"><input type="button" value="查询" id="chaxun" style="background-color: orange; margin-left:80px;"></p>
+                        <div><p>入店日期：<input type="date" name="rz"></p></div>
+                        <div><p>离店日期：<input type="date" name="ld"></p></div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content-wrapper" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">房间类别列表</div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table  table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>入住时间</th>
+                                                <th>离店时间</th>
+                                                <th>房间类型</th>
+                                                <th>房间号</th>
+                                                <th>姓名</th>
+                                                <th>性别</th>
+                                                <th>联系人</th>
+                                                <th>联系电话</th>
+                                                <th>留言</th>
+                                                <th>价钱</th>
+                                                <th>证件类型</th>
+                                                <th>证件号</th>
+                                                <th>消费金额</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tbody"></tbody>
+                                        </table>
+                                    </div>
+                                    <div id="pagenavbox"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script type="text/javascript" src="js/PageNav.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script>
+ $("#chaxun").click(function(){
+     // var txt=$("#txt").val();
+     var form=$("#form").serialize();
+     $("#tbody").html(" ");
+     $.post("/Ruzhuchaxun",form,function(data){
+         // console.log(data.result)
+         if(data.result==-1){
+             alert("没有符合条件的订单");
+             return;
+         }
+         $.each(data.result,function(i,n){
+             $tr=$("<tr></tr>");
+             $("<td></td>").html(n.ruzhu).appendTo($tr);
+             $("<td></td>").html(n.lidian).appendTo($tr);
+             $("<td></td>").html(n.leixing).appendTo($tr);
+             $("<td></td>").html(n.fanghao).appendTo($tr);
+             $("<td></td>").html(n.xingming).appendTo($tr);
+             $("<td></td>").html(n.xingbie).appendTo($tr);
+             $("<td></td>").html(n.lianxiren).appendTo($tr);
+             $("<td></td>").html(n.dianhua).appendTo($tr);
+             $("<td></td>").html(n.liuyan).appendTo($tr);
+             $("<td></td>").html(n.jiaqian).appendTo($tr);
+             $("<td></td>").html(n.zhengjian).appendTo($tr);
+             $("<td></td>").html(n.zhengjianhao).appendTo($tr);
+             $("<td></td>").html(n.jiaqian*n.yudingshu).appendTo($tr);
+             $tr.appendTo($("#tbody"));
+         })
+     })
+ })
+</script>
+</body>
+</html>

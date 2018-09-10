@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录页面</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+</head>
+<style>
+    *{
+        padding:0;
+        margin:0;
+    }
+    header{
+        background:black;
+        color:white;
+        height:50px;
+        text-align: center;
+    }
+    .box{
+        width:600px;
+        margin:10px auto;
+        font-size:14px;
+        font-family: "微软雅黑";
+
+    }
+    .box div{
+        margin:20px 30px;
+    }
+    .box div input{
+        width:250px;
+        height:30px;
+    }
+    .box div span{
+        font-size:13px;
+        margin:20px 30px;
+        color:#666;
+    }
+    a{
+        text-decoration: none;
+    }
+    body{
+        background:url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3292702692,1954786203&fm=27&gp=0.jpg) no-repeat;
+        /*color:orangered;*/
+    }
+    button{
+        background-color: orange;
+        padding:5px;
+        margin:10px;
+    }
+    #select{
+        width:100px;
+        height:30px;
+    }
+    h5{
+        color:orange;
+        float:left;
+    }
+    div{
+        clear:both;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">客户页面</a></li>
+                <ul class="list-style" style="margin-left:50px;">
+                    <li><a href="/kehu">客户预定</a></li>
+                    <li><a href="/kuhufind">客户查询</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="box">
+    <div>
+        <p><h5>入 住 日 期：</h5><input type="date" name="ruzhu" value="<%=data[0].ruzhu%>"><span>请选择入住的日期</span></p>
+    </div>
+    <div>
+        <p><h5>离 店 日 期：</h5><input type="date" name="lidian" value="<%=data[0].lidian%>"><span>请选择离店日期</span></p>
+    </div>
+    <div>
+        <p><h5>房 间 类 型：</h5><select name="leixing" id="select" value="<%=data[0].leixing%>">
+            <option value="<%=data[0].leixing%>"><%=data[0].leixing%></option></select><span id="span" style="display:none;"><%=data[0].leixing%></span>
+    </div>
+    <div>
+        <p><h5>房间剩余数量：</h5><input type="text" name="shengyu" value="<%=data[0].shengyu%>">
+    </div>
+    <div>
+        <p><h5>房 间 价 钱：</h5><input type="text" name="jiaqian" value="<%=data[0].jiaqian%>">
+    </div>
+    <div>
+        <p><h5>预 订 数 量：</h5><input type="text" value="1" name="yudingshu" value="<%=data[0].yudingshu%>"><span id="yuding" style="display:none;"><%=data[0].yudingshu%></span></p>
+    </div>
+    <div>
+        <p><h5>入住人姓名：</h5><input type="text" name="xingming" value="<%=data[0].xingming%>"></p>
+        <span>多人入住，请填入所有人信息</span>
+    </div>
+    <div>
+        <p><h5>联    系    人：</h5>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="lianxiren" value="<%=data[0].lianxiren%>"></p>
+    </div>
+    <div>
+        <p><h5>联 系 电 话：</h5><input type="text" name="dianhua" value="<%=data[0].dianhua%>"></p>
+    </div>
+    <div>
+        <p><h5>留  &nbsp;&nbsp;&nbsp;&nbsp;   言：&nbsp;&nbsp;&nbsp;  </h5><textarea name="liuyan" id="textarea" cols="38" rows="10" ><%=data[0].liuyan%></textarea></p>
+    </div>
+
+    <div style="margin:20px auto;width:300px;">
+        <button id="btn"><a href="/kuhufind">提交订单</a></button>
+        <button id="chongzhi">重置</button>
+        <button><a href="/kuhufind">关闭本页</a></button>
+    </div>
+</div>
+
+<script src="js/jquery-1.12.3.min.js"></script>
+<script>
+    var  windowH=document.documentElement.clientHeight||document.body.clientHeight;
+    $("body").css("backgroundSize","100%"+windowH+"px");
+    var arr=$("#span").html();
+    $.get("/Kehuleibie",function(data){
+        $.each(data.leibie,function(i,n){
+            if(n.mingcheng!==arr){
+                $("<option></option>").html(n.mingcheng).appendTo($("#select"))
+            }
+        })
+    });
+
+    $("#select").change(function(){
+        var str=$(this).val();
+        // console.log(arr)
+        // console.log(brr)
+         val=str
+        $.get("/Kehushuliang/"+str,function(data){
+            // console.log(data)
+            $(".box  input[name=shengyu]").val(data.s[0].shengyu);
+            $(".box  input[name=jiaqian]").val(data.s[0].jiage);
+
+        })
+    })
+    $("#chongzhi").click(function(){
+        $("input").val(" ");
+        $("textarea").val("");
+    })
+    //提交订单
+
+    $("#btn").click(function(){
+        var arr=$("#span").html();
+        var brr=$("#yuding").html();
+        $.post("/xiugaiyuding/",{
+            ruzhu: $(".box  input[name=ruzhu]").val(),
+            lidian : $(".box  input[name=lidian]").val(),
+            leixing : $(".box  select[name=leixing]").val(),
+            shengyu: $(".box  input[name=shengyu]").val(),
+            jiaqian : $(".box  input[name=jiaqian]").val(),
+            yudingshu: $(".box  input[name=yudingshu]").val(),
+            xingming: $(".box  input[name=xingming]").val(),
+            lianxiren: $(".box  input[name=lianxiren]").val(),
+            dianhua: $(".box  input[name=dianhua]").val(),
+            liuyan: $(".box  textarea[name=liuyan]").val(),
+        },function(data){
+            // console.log(data)
+            if (data.s==1){
+                alert("成功")
+                console.log($("#select").val())
+                if($("#select").val()!=arr){
+                    $.post("/updataDingdan/",{
+                        leixing : $(".box  select[name=leixing]").val(),
+                        yudingshu: $(".box  input[name=yudingshu]").val(),
+                    },function(data){
+                        if (data.s==1){
+                            alert("成功")
+                        }
+                    })
+                    $.post("/addShengyushu/",{
+                        leixing :arr,
+                        yudingshu: brr,
+                    },function(data){
+                        if (data.s==1){
+                            alert("成功")
+                            $("input").val(" ");
+                            $("textarea").val("");
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

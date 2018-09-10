@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登录进入的首页</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+</style>
+<body>
+<nav>
+    <div class="collapse navbar-collapse" style="width:200px;float:right;margin-top:-50px;">
+        <ul class="nav navbar-nav navbar-right" >
+            <li><a href="javescript:">管理员：<%=result%></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">入住管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showDatangRuzhu">大堂入住</a></li>
+                    <li><a href="/showDingdanRuzhu">订单入住</a></li>
+                </ul>
+                <li><a href="#">退房管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showTuifang">退房管理</a></li>
+                </ul>
+                <li><a href="#">记录查询</a></li>
+                <ul class="list-style">
+                    <li><a href="/showRuzhu">入住记录查询</a></li>
+                </ul>
+                <li><a href="#">房间管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showFangjian">房间信息管理</a></li>
+                </ul>
+                <li><a href="#">房类管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/Gleibie">房间类别管理</a></li>
+                </ul>
+                <li><a href="#">修改密码</a></li>
+                <ul class="list-style">
+                    <li><a href="/showchangepw">修改密码</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">房间信息管理</h1>
+        <div style="width: 600px;
+    margin: 10px auto;">
+            <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal">创建</button>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size:12px">创建</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div>
+                              <p><span>房间号：</span><input type="text" name="fanghao"></p>
+                              <div class="alert alert-danger" role="alert" id="sid_tip" style="display:none;">房间号已经存在，请检查！</div>
+                          </div>
+                            <div>
+                                <p><span>房间类别：</span><select  name="leibie" id="select"></select></p>
+                          </div>
+                            <div>
+                                <p><span>房间位置：</span><input type="text" name="weizhi"></p>
+                          </div>
+                            <div>
+                                <p><span>房间描述：</span><textarea name="miaoshu" id="" cols="30" rows="10"></textarea></p>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="btn1">ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal2" id="modo2">编辑</button>
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size:12px">编辑</h4>
+                        </div>
+                        <div class="modal-body" id="bianji">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="btn2">ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal3" id="modo3">详情</button>
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size:12px">详情</h4>
+                        </div>
+                        <div class="modal-body" id="xingqing">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-default" type="submit" style="color:red;" data-toggle="modal" data-target="#myModal4">删除</button>
+            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">删除</h4>
+                        </div>
+                        <div class="modal-body">
+                            确定要删除该用户？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="btn4">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="btn btn-warning" type="submit" style="width:150px;" data-toggle="modal" data-target="#myModal5" id="modo5">查看入住情况</button>
+            <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">房间入住情况</h4>
+                        </div>
+                        <div class="modal-body" id="fanghao" style="height:300px;">
+                            <ul>
+
+                            </ul>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="btn4">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">房间信息列表</div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table  table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>选择</th>
+                                            <th>房间号</th>
+                                            <th>房间类别</th>
+                                            <th>房间位置</th>
+                                            <th>房间描述</th>
+                                            <th>房间状态</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbody"></tbody>
+                                    </table>
+                                </div>
+                                <div id="pagenavbox"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/PageNav.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script>
+    $.get("/Kehuleibie",function(data){
+        $.each(data.leibie,function(i,n){
+            $("<option></option>").html(n.mingcheng).appendTo($("#select"))
+        })
+    });
+
+    $.get("/Allfangjian?page=1",function(data){
+        new PageNav({
+            boxid : "pagenavbox",
+            page : 1,
+            pageAmount : data.pageAmount,
+            change : function(pagenumber){
+                gotopage(pagenumber);
+            }
+        })
+        gotopage(1);
+    })
+
+    function gotopage(pagenumber){
+        $("#tbody").empty();
+        var ruzhu='';
+        $.get("/Allfangjian?page="+pagenumber,function(data){
+            $.each(data.result,function(i,n){
+                if(n.zhuangtai==0){
+                    ruzhu="未入住"
+                }else{
+                    ruzhu="已入住"
+                }
+                $tr=$("<tr></tr>");
+                $("<td><input type='radio' data-id='"+n.fanghao+"' name='dd'></td>").appendTo($tr);
+                $("<td></td>").html(n.fanghao).appendTo($tr);
+                $("<td></td>").html(n.leibie).appendTo($tr);
+                $("<td></td>").html(n.weizhi).appendTo($tr);
+                $("<td></td>").html(n.miaoshu).appendTo($tr);
+                $("<td></td>").html(ruzhu).appendTo($tr);
+                $tr.appendTo($("#tbody"));
+            })
+        })
+    }
+    //检测id号
+    $("input[name=fanghao]").blur(function(){
+        var sid = parseInt($("input[name=fanghao]").val());
+        //判断是否是数字 并且是否是空，而且是六位数字
+        if(isNaN(sid) || !sid){
+            $("#sid_tip").removeClass("alert-success").addClass("alert-danger").html("请填写正确的学号，编号是数字").show();
+            return;
+        }
+
+        $.ajax({
+            type : "propfind",
+            url  : "/checkfanghao/" + $("input[name=fanghao]").val(),
+            success : function(data){
+                if(!data.result){
+                    $("#sid_tip").removeClass("alert-success").addClass("alert-danger").html("已有该房号").show();
+                }else{
+                    $("#sid_tip").removeClass("alert-danger").addClass("alert-success").html("恭喜！可以使用！").show();
+                }
+            }
+        });
+    });
+    //得到焦点的时候，提示框消失
+    $("input[name=fanghao]").focus(function(){
+        $("#sid_tip").hide();
+    });
+
+    //添加
+    $("#btn1").click(function(){
+        $.post("/Allfangjian",{
+            fanghao: parseInt($("#myModal input[name=fanghao]").val()),
+            leibie : $("#myModal select[name=leibie]").val(),
+            weizhi : $("#myModal input[name=weizhi]").val(),
+            miaoshu: $("#myModal textarea[name=miaoshu]").val(),
+            zhuangtai : 0,
+        },function(data){
+            if(data.result == 1){
+                alert("提交成功！");
+                $("input[type=text]").val("");
+            }else if(data.result == -2){
+                alert("服务器错误！请联系管理员，怎么联系我也不知道！");
+            }
+
+        })
+        $("#myModal").hide();
+        window.location.href='/showFangjian'
+    })
+
+    //修改
+    $("#modo2").click(function(){
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $("#bianji").html(" ")
+        $.ajax({
+            url:"/Fangjian/"+id,
+            type:"get",
+            success:function(data){
+                // console.log(data)
+                if(data.s.zhuangtai==0){
+
+                }
+                if(data.s==-1){
+                    alert("服务器错误Q!");
+                }else{
+                    $("<div></div>").html('<p><h5>房号:</h5><input type="" value="'+data.s.fanghao+'" disabled="disabled" name="fanghao"></p><p><h5>房间类别:</h5><input value="'+data.s.leibie+'" name="leibie"></p><p><h5>房间位置:</h5><input value="'+data.s.weizhi+'"  name="weizhi" ></p><p><h5>房间描述:</h5><input value="'+data.s.miaoshu+'" name="miaoshu"></p><p><h5>房间状态:</h5><select value="'+data.s.zhuangtai+'" name="zhuangtai"></select></p>').appendTo($("#bianji"))
+                }
+            }
+        })
+    })
+    $("#btn2").click(function(){
+        $.post("/fj/",{
+            fanghao: parseInt($("#myModal2 input[name=fanghao]").val()),
+            leibie : $("#myModal2 input[name=leibie]").val(),
+            weizhi : $("#myModal2 input[name=weizhi]").val(),
+            miaoshu: $("#myModal2 input[name=miaoshu]").val(),
+            zhuangtai : $("#myModal2 select[name=zhuangtai]").val(),
+        },function(data){
+            // console.log(data)
+            if (data.s==1){
+                alert("成功")
+                window.location="/showFangjian"
+            }
+        })
+    })
+    //详情
+    $("#modo3").click(function(){
+        $("#xingqing").html("");
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $.ajax({
+            url:"/Fangjian/"+id,
+            type:"get",
+            success:function(data){
+                if(data.s==-1){
+                    alert("服务器错误Q!");
+                }else{
+                    $("<div></div>").html('<p><h5>房间号:'+data.s.fanghao+'</h5></p><p><h5>房间类别:'+data.s.leibie+'</h5></p><p><h5>房间位置:'+data.s.weizhi+'</h5></p><p><h5>房间描述:'+data.s.miaoshu+'</h5></p><p><h5>房间状态:'+data.s.zhuangtai+'</h5></p>').appendTo($("#xingqing"))
+                }
+            }
+        })
+    })
+    //删除
+    $("#btn4").click(function(){
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $.ajax({
+            url : "/Fangjian/" + id,
+            type : "delete",
+            success : function(data){
+                if(data.result == 1){
+                    alert("删除成功");
+
+                    $this.parents("tr").remove();
+
+                }else{
+                    alert("服务器错误！");
+                }
+            }
+
+        });
+        $("#myModal4").hide();
+        window.location.href='/showFangjian'
+    })
+    //房间号渲染
+    $("#modo5").click(function(){
+        $("#fanghao ul").html(" ")
+        $.get("/findAllFanghao",function(data){
+            $.each(data.data,function(i,n){
+                if(n.zhuangtai==0){
+                    $("<li style='list-style:none;border: 1px solid black;border-radius: 50%; padding:10px;float:left;margin:10px 20px;background:lawngreen;'>"+n.fanghao+"</li>").appendTo($("#fanghao ul"));
+                }else if(n.zhuangtai==1){
+                    $("<li style='list-style:none;border: 1px solid black;border-radius: 50%; padding:10px;float:left;margin:10px 20px;background:red;'>"+n.fanghao+"</li>").appendTo($("#fanghao ul"));
+                }
+
+            })
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登录进入的首页</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+  .btn{
+      margin:5px 10px;
+  }
+</style>
+<body>
+<nav>
+    <div class="collapse navbar-collapse" style="width:200px;float:right;margin-top:-50px;">
+        <ul class="nav navbar-nav navbar-right" >
+            <li><a href="javescript:">管理员：<%=result%></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">入住管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showDatangRuzhu">大堂入住</a></li>
+                    <li><a href="/showDingdanRuzhu">订单入住</a></li>
+                </ul>
+                <li><a href="#">退房管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showTuifang">退房管理</a></li>
+                </ul>
+                <li><a href="#">记录查询</a></li>
+                <ul class="list-style">
+                    <li><a href="/showRuzhu">入住记录查询</a></li>
+                </ul>
+                <li><a href="#">房间管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showFangjian">房间信息管理</a></li>
+                </ul>
+                <li><a href="#">房类管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/Gleibie">房间类别管理</a></li>
+                </ul>
+                <li><a href="#">修改密码</a></li>
+                <ul class="list-style">
+                    <li><a href="/showchangepw">修改密码</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">房间类别管理</h1>
+            <div style="width: 600px;
+    margin: 10px auto;">
+                <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal">创建</button>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel" style="font-size:12px">创建</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>房间类别：<input type="number" name="leibie"></p>
+                                    <div class="alert alert-danger" role="alert" id="sid_tip" style="display:none;">类别号已经存在，请检查！</div>
+                                </div>
+                                <div>
+                                    <p>房间名称：<input type="text" name="mingcheng"></p>
+                                </div>
+                                <div>
+                                    <p>面   积：<input type="text" name="mianji">平方米</p>
+                                </div>
+                                <div>
+                                    <p>床 位 数：<input type="text" name="chuangwei"></p>
+                                </div>
+                                <div>
+                                    <p>早   餐：<select name="zaocan" id="">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>网   络：<select name="wangluo" id="">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>电   视：<select name="dianshi" id="">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>价   格：<input type="text" name="jiage">元/每天</p>
+                                </div>
+                                <div>
+                                    <p>房间数量：<input type="text" name="shuliang"></p>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btn1">ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal2" id="modo2">编辑</button>
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel" style="font-size:12px">编辑</h4>
+                            </div>
+                            <div class="modal-body" id="bianji">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btn2">ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <button class="btn btn-info " type="submit" data-toggle="modal" data-target="#myModal3" id="modo3">详情</button>
+                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel" style="font-size:12px">详情</h4>
+                            </div>
+                            <div class="modal-body" id="xingqing">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-default" type="submit" style="color:red;" data-toggle="modal" data-target="#myModal4">删除</button>
+                <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">删除</h4>
+                            </div>
+                            <div class="modal-body">
+                                确定要删除该用户？
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btn4">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">房间类别列表</div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table  table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>选择</th>
+                                                <th>房间类别</th>
+                                                <th>类别名称</th>
+                                                <th>面积</th>
+                                                <th>床位数</th>
+                                                <th>早餐</th>
+                                                <th>网络</th>
+                                                <th>电视</th>
+                                                <th>价格</th>
+                                                <th>房间数量</th>
+                                                <th>剩余数量</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tbody"></tbody>
+                                        </table>
+                                    </div>
+                                    <div id="pagenavbox"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="js/PageNav.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script>
+    $.get("/Allleibie?page=1",function(data){
+        new PageNav({
+            boxid : "pagenavbox",
+            page : 1,
+            pageAmount : data.pageAmount,
+            change : function(pagenumber){
+                gotopage(pagenumber);
+            }
+        })
+        gotopage(1);
+    })
+
+    function gotopage(pagenumber){
+        $("#tbody").empty();
+        $.get("/Allleibie?page="+pagenumber,function(data){
+            $.each(data.result,function(i,n){
+                $tr=$("<tr></tr>");
+                $("<td><input type='radio' data-id='"+n.leibie+"' name='dd'></td>").appendTo($tr);
+                $("<td></td>").html(n.leibie).appendTo($tr);
+                $("<td></td>").html(n.mingcheng).appendTo($tr);
+                $("<td></td>").html(n.mianji).appendTo($tr);
+                $("<td></td>").html(n.chuangwei).appendTo($tr);
+                $("<td></td>").html(n.zaocan).appendTo($tr);
+                $("<td></td>").html(n.wangluo).appendTo($tr);
+                $("<td></td>").html(n.dianshi).appendTo($tr);
+                $("<td></td>").html(n.jiage).appendTo($tr);
+                $("<td></td>").html(n.shuliang).appendTo($tr);
+                $("<td></td>").html(n.shengyu).appendTo($tr);
+                $tr.appendTo($("#tbody"));
+            })
+        })
+    }
+    //检测id号
+    $("input[name=leibie]").blur(function(){
+        var sid = parseInt($("input[name=leibie]").val());
+        //判断是否是数字 并且是否是空，而且是六位数字
+        if(isNaN(sid) || !sid){
+            $("#sid_tip").removeClass("alert-success").addClass("alert-danger").html("请填写正确的学号，编号是数字").show();
+            return;
+        }
+
+        $.ajax({
+            type : "propfind",
+            url  : "/checkleibie/" + $("input[name=leibie]").val(),
+            success : function(data){
+                if(!data.result){
+                    $("#sid_tip").removeClass("alert-success").addClass("alert-danger").html("已有该类别").show();
+                }else{
+                    $("#sid_tip").removeClass("alert-danger").addClass("alert-success").html("恭喜！可以使用！").show();
+                }
+            }
+        });
+    });
+    //得到焦点的时候，提示框消失
+    $("input[name=leibie]").focus(function(){
+        $("#sid_tip").hide();
+    });
+
+    //添加
+    $("#btn1").click(function(){
+        $.post("/Allleibie",{
+            leibie: parseInt($("#myModal input[name=leibie]").val()),
+            mingcheng : $("#myModal input[name=mingcheng]").val(),
+            mianji : $("#myModal input[name=mianji]").val(),
+            chuangwei: $("#myModal input[name=chuangwei]").val(),
+            zaocan : $("#myModal select[name=zaocan]").val(),
+            wangluo: $("#myModal select[name=wangluo]").val(),
+            dianshi: $("#myModal select[name=dianshi]").val(),
+            jiage: $("#myModal input[name=jiage]").val(),
+            shuliang: $("#myModal input[name=shuliang]").val(),
+        },function(data){
+            if(data.result == 1){
+                alert("提交成功！");
+                $("input[type=text]").val("");
+            }else if(data.result == -2){
+                alert("服务器错误！请联系管理员，怎么联系我也不知道！");
+            }
+
+        })
+        $("#myModal").hide();
+        window.location.href='/Gleibie'
+    })
+
+    //修改
+    $("#modo2").click(function(){
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $("#bianji").html(" ")
+        $.ajax({
+            url:"/Gleibie/"+id,
+            type:"get",
+            success:function(data){
+                // console.log(data)
+                if(data.s==-1){
+                    alert("服务器错误Q!");
+                }else{
+                    $("<div></div>").html('<p><h5>房间类别:</h5><input type="" value="'+data.s.leibie+'" disabled="disabled" name="leibie"></p><p><h5>名称:</h5><input value="'+data.s.mingcheng+'" name="mingcheng"></p><p><h5>面积:</h5><input value="'+data.s.mianji+'"  name="mianji" ></p><p><h5>床位数:</h5><input value="'+data.s.chuangwei+'" name="chuangwei"></p><p><h5>早餐:</h5><input value="'+data.s.zaocan+'" name="zaocan"></p><p><h5>网络:</h5><input value="'+data.s.wangluo+'" name="wangluo"></p><p><h5>电视:</h5><input value="'+data.s.dianshi+'" name="dianshi"></p><p><h5>价格:</h5><input value="'+data.s.jiage+'" name="jiage"></p><p><h5>房间数量:</h5><input value="'+data.s.shuliang+'" name="shuliang"></p>').appendTo($("#bianji"))
+                }
+            }
+        })
+    })
+    $("#btn2").click(function(){
+        $.post("/gfdh/",{
+            leibie: parseInt($("#myModal2 input[name=leibie]").val()),
+            mingcheng : $("#myModal2 input[name=mingcheng]").val(),
+            mianji : $("#myModal2 input[name=mianji]").val(),
+            chuangwei: $("#myModal2 input[name=chuangwei]").val(),
+            zaocan : $("#myModal2 input[name=zaocan]").val(),
+            wangluo: $("#myModal2 input[name=wangluo]").val(),
+            dianshi: $("#myModal2 input[name=dianshi]").val(),
+            jiage: $("#myModal2 input[name=jiage]").val(),
+            shuliang: $("#myModal2 input[name=shuliang]").val(),
+        },function(data){
+            // console.log(data)
+            if (data.s==1){
+                alert("成功")
+                window.location="/Gleibie"
+            }
+        })
+    })
+    //详情
+    $("#modo3").click(function(){
+        $("#xingqing").html("");
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $.ajax({
+            url:"/Gleibie/"+id,
+            type:"get",
+            success:function(data){
+                if(data.s==-1){
+                    alert("服务器错误Q!");
+                }else{
+                    $("<div></div>").html('<p><h5>房间类别:'+data.s.leibie+'</h5></p><p><h5>类别名称:'+data.s.mingcheng+'</h5></p><p><h5>面积:'+data.s.mianji+'</h5></p><p><h5>床位数:'+data.s.chuangwei+'</h5></p><p><h5>早餐:'+data.s.zaocan+'</h5></p><p><h5>网络:'+data.s.wangluo+'</h5></p><p><h5>电视:'+data.s.dianshi+'</h5></p><p><h5>价格:'+data.s.jiage+'</h5></p><p><h5>房间数量:'+data.s.shuliang+'</h5></p><p><h5>剩余数量:'+data.s.shengyu+'</h5></p>').appendTo($("#xingqing"))
+                }
+            }
+        })
+    })
+    //删除
+    $("#btn4").click(function(){
+        var id=parseInt($("input[type=radio]:checked").attr("data-id"));
+        $.ajax({
+            url : "/Gleibie/" + id,
+            type : "delete",
+            success : function(data){
+                if(data.result == 1){
+                    alert("删除成功");
+
+                    $this.parents("tr").remove();
+
+                }else{
+                    alert("服务器错误！");
+                }
+            }
+
+        });
+        $("#myModal4").hide();
+        window.location.href='/Gleibie'
+    })
+
+</script>
+</body>
+</html>

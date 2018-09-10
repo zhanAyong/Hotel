@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登录进入的首页</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+    .btn{
+        margin:5px 10px;
+    }
+    body{
+        background:url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3292702692,1954786203&fm=27&gp=0.jpg) no-repeat;
+    }
+    button{
+        background-color: orange;
+        padding:5px;
+        margin:10px;
+    }
+    #select{
+        width:100px;
+        height:30px;
+    }
+    span{
+        color:orange;
+    }
+</style>
+<body>
+<nav>
+    <div class="collapse navbar-collapse" style="width:200px;float:right;margin-top:-50px;">
+        <ul class="nav navbar-nav navbar-right" >
+            <li><a href="javescript:">管理员：<%=result%></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">入住管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showDatangRuzhu">大堂入住</a></li>
+                    <li><a href="/showDingdanRuzhu">订单入住</a></li>
+                </ul>
+                <li><a href="#">退房管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showTuifang">退房管理</a></li>
+                </ul>
+                <li><a href="#">记录查询</a></li>
+                <ul class="list-style">
+                    <li><a href="/showRuzhu">入住记录查询</a></li>
+                </ul>
+                <li><a href="#">房间管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showFangjian">房间信息管理</a></li>
+                </ul>
+                <li><a href="#">房类管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/Gleibie">房间类别管理</a></li>
+                </ul>
+                <li><a href="#">修改密码</a></li>
+                <ul class="list-style">
+                    <li><a href="/showchangepw">修改密码</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">大堂入住</h1>
+        <div style="width:600px;margin:10px auto;">
+            <div class="box">
+                <div>
+                    <p><span>入 住 日 期：</span><input type="date" name="ruzhu">请选择入住的日期</p>
+                </div>
+                <div>
+                    <p><span>离 店 日 期：</span><input type="date" name="lidian">请选择离店日期</p>
+                </div>
+                <div>
+                    <p><span>房 间 类 型：</span><select name="leixing" id="select1"></select>
+                </div>
+                <div>
+                    <p><span>房   间   号：</span><select name="fanghao" id="select2"></select>
+                </div>
+                <div>
+                    <p><span>入住人姓名：</span><input type="text" name="xingming"></p>
+                    <span style="color:#666">多人入住，请填入所有人信息</span>
+                </div>
+                <div>
+                    <p><span>性    别：</span>
+                        <select name="xingbie" id="select">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+
+                </div>
+                <div>
+                    <p> <span>联    系    人：&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input type="text" name="lianxiren">
+                    </p>
+                </div>
+                <div>
+                    <p><span>联 系 电 话：</span><input type="text" name="dianhua"></p>
+                </div>
+                <div>
+                    <p><span>留  &nbsp;&nbsp;&nbsp;&nbsp;   言：&nbsp;&nbsp;&nbsp;  </span><textarea name="liuyan" id="textarea" cols="38" rows="10"></textarea></p>
+                </div>
+                <div>
+                    <p><span>房间剩余数量：</span><input type="text" name="shengyu">
+                </div>
+                <div>
+                    <p><span>入  住 数 量：</span><input type="text" value="1" name="yudingshu"></p>
+                </div>
+                <div>
+                    <p><span>房 间 价 钱：</span><input type="text" name="jiaqian">
+                </div>
+                <div>
+                    <span style="float:left;">证件类型：</span>
+                    <select name="zhengjian" id="">
+                        <option value="身份证">身份证</option>
+                        <option value="户口本">户口本</option>
+                    </select>
+                </div>
+                <div style="clear: both;">
+                    <span style="float:left;">证件号：</span>
+                    <input type="text" id="" name="zhengjianhao">
+                </div>
+                <div style="margin:20px auto;width:300px;">
+                    <button id="banli">办理入住</button>
+                    <button id="chongzhi">重置</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="js/PageNav.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script>
+    var  windowH=document.documentElement.clientHeight||document.body.clientHeight;
+    $("body").css("backgroundSize","100%"+windowH+"px");
+// 房间列别渲染
+    $.get("/Kehuleibie",function(data){
+        $.each(data.leibie,function(i,n){
+            // console.log(n.mingcheng)
+            $("<option></option>").html(n.mingcheng).appendTo($("#select1"))
+        })
+    });
+    //房间号渲染
+    $("#select1").change(function(){
+        // console.log($(this).val());
+        $("#select2").html("")
+        var str=$(this).val();
+        // console.log(str)
+        $.get("/DingdanRuzhu"+str,function(data){
+            $.each(data.data,function(i,n){
+                // console.log(n.mingcheng)
+                $("<option></option>").html(n.fanghao).appendTo($("#select2"));
+            })
+            $.get("/xuanranfangjianxinxi/"+str,function(data){
+                // console.log(data.s)
+              $(".box input[name=shengyu]").val(data.s.shengyu)
+              $(".box input[name=jiaqian]").val(data.s.jiage)
+            })
+        });
+
+    })
+    $("#banli").click(function(){
+        $.post("/doDingdanRuzhu",{
+            dingdanhao:"",
+            ruzhu: $(".box  input[name=ruzhu]").val(),
+            lidian: $(".box  input[name=lidian]").val(),
+            leixing:$(".box select[name=leixing]").val(),
+            fanghao:$(".box select[name=fanghao]").val(),
+            xingming:$(".box  input[name=xingming]").val(),
+            xingbie:$(".box select[name=xingbie]").val(),
+            lianxiren:$(".box input[name=lianxiren]").val(),
+            dianhua: $(".box input[name=dianhua]").val(),
+            liuyan:$(".box textarea[name=liuyan]").val(),
+            shengyu:$(".box input[name=shengyu]").val(),
+            yudingshu:$(".box input[name=yudingshu]").val(),
+            jiaqian: $(".box input[name=jiaqian]").val(),
+            zhengjian:$(".box select[name=zhengjian]").val(),
+            zhengjianhao:$(".box input[name=zhengjianhao]").val(),
+        },function(data){
+            if(data.result == 1){
+                alert("成功入住！");
+                $.post("/changeZhuangtai",{
+                    fanghao:$(".box select[name=fanghao]").val(),
+                },function(data){
+
+                })
+                $.post("/updataDingdan/",{
+                    leixing : $(".box  select[name=leixing]").val(),
+                    yudingshu: $(".box  input[name=yudingshu]").val(),
+                },function(data){
+                    if (data.s==1){
+                        alert("成功")
+                        $("input").val(" ");
+                        $("textarea").val("");
+                    }
+                })
+            }else if(data.result == -2){
+                alert("服务器错误！请联系管理员，怎么联系我也不知道！");
+            }else if(data.result==-1){
+                alert("该房间已入住")
+            }
+        })
+    })
+</script>
+</body>
+</html>

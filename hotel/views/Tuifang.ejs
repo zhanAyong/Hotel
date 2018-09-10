@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员登录进入的首页</title>
+    <link href="/css/font-awesome.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+    .btn{
+        margin:5px 10px;
+    }
+    button{
+        background:orange;
+    }
+    .anniu{
+        width:400px;
+        margin:20px auto;
+    }
+    .anniu  button{
+        margin-left:30px;
+    }
+    h5{
+        color:orange;
+        float:left;
+    }
+    div{
+        clear:both;
+    }
+    span{
+        display:block;
+    }
+    body{
+        background:url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3292702692,1954786203&fm=27&gp=0.jpg) no-repeat;
+        /*background-color: #bce8f1;*/
+    }
+</style>
+<body>
+<nav>
+    <div class="collapse navbar-collapse" style="width:200px;float:right;margin-top:-50px;">
+        <ul class="nav navbar-nav navbar-right" >
+            <li><a href="javescript:">管理员：<%=result%></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店管理</a></li>
+                <li><a href="#">入住管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showDatangRuzhu">大堂入住</a></li>
+                    <li><a href="/showDingdanRuzhu">订单入住</a></li>
+                </ul>
+                <li><a href="#">退房管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showTuifang">退房管理</a></li>
+                </ul>
+                <li><a href="#">记录查询</a></li>
+                <ul class="list-style">
+                    <li><a href="/showRuzhu">入住记录查询</a></li>
+                </ul>
+                <li><a href="#">房间管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/showFangjian">房间信息管理</a></li>
+                </ul>
+                <li><a href="#">房类管理</a></li>
+                <ul class="list-style">
+                    <li><a href="/Gleibie">房间类别管理</a></li>
+                </ul>
+                <li><a href="#">修改密码</a></li>
+                <ul class="list-style">
+                    <li><a href="/showchangepw">修改密码</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">退房管理</h1>
+        <div style="width:600px;margin:10px auto;">
+            <div>
+                <div>
+                    <p><h5 style="float:left;">请输入房间号：</h5><input type="text" id="txt">
+                    <button id="chaxun" style="margin-left:50px;">查询</button></p>
+                </div>
+            </div>
+            <div>
+                <h4 style="width:150px;margin:5px auto;">顾客信息</h4>
+                <div>
+                      <div><h5>证件类型：</h5><span class="zhengjian"></span></div>
+                </div>
+                <div>
+                      <div><h5>证件号：</h5><span class="zhengjianhao"></span></div>
+                </div>
+                <div>
+                    <div><h5>姓名：</h5><span class="lianxiren"></span></div>
+                </div>
+                <div>
+                    <div><h5>性别：</h5><span class="xingbie"></span></div>
+                </div>
+            </div>
+            <div>
+                <h4 style="width:150px;margin:5px auto;">入住信息</h4>
+                <div>
+                    <div><h5>房间号：</h5><span class="fanghao"></span></div>
+                </div>
+                <div>
+                    <div><h5>房间类型：</h5><span class="leixing"></span></div>
+                </div>
+                <div>
+                    <div><h5>入住日期：</h5><span class="ruzhu"></span></div>
+                </div>
+                <div>
+                    <div><h5>入住人：</h5><span class="xingming"></span></div>
+                </div>
+                <div>
+                    <div><h5>入住天数：</h5><span class="day"></span></div>
+                </div>
+                <div>
+                    <div><h5>价格：</h5><span class="jiaqian"></span></div>
+                </div>
+                <div>
+                    <div><h5>消费金额：</h5><span class="jine"></span></div>
+                </div>
+            </div>
+            <div class="anniu">
+                <button id="tuifang">退房</button>
+                <button id="end">完成</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="js/PageNav.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script>
+
+    var  windowH=document.documentElement.clientHeight||document.body.clientHeight;
+    $("body").css("backgroundSize","100%"+windowH+"px");
+
+//点击完成
+$("#end").click(function(){
+    window.location.href='/Gindex'
+});
+
+//点击查询
+$("#chaxun").click(function(){
+    var txt=$("#txt").val();
+    $("#tbody").html(" ");
+    $.get("/RuzhuchaxunFH"+txt,function(data){
+        if(data.result==-1){
+            alert("该房间还没有入住！");
+            return;
+        }
+        // console.log(data.result)
+        $.each(data.result,function(i,n){
+            var sArr = n.ruzhu.split("-");
+            var eArr = n.lidian.split("-");
+            var sRDate = new Date(sArr[0], sArr[1], sArr[2]);
+            var eRDate = new Date(eArr[0], eArr[1], eArr[2]);
+            var days = Math.abs((sRDate - eRDate) / (24 * 60 * 60 * 1000));
+            $(".zhengjian").html(n.zhengjian);
+            $(".zhengjianhao").html(n.zhengjianhao);
+            $(".lianxiren").html(n.lianxiren);
+            $(".xingbie").html(n.xingbie);
+            $(".fanghao").html(n.fanghao);
+            $(".leixing").html(n.leixing);
+            $(".ruzhu").html(n.ruzhu);
+            $(".xingming").html(n.xingming);
+            $(".day").html(days+"天");
+            $(".jiaqian").html(n.jiaqian);
+            $(".jine").html(days * n.jiaqian)
+        })
+    })
+})
+//点击退房
+    $("#tuifang").click(function(){
+        $.post("/changeTzhuangtai",{
+            fanghao:$("#txt").val()
+        },function(data){
+            if(data.s == 1){
+                // alert("成功！");
+                    $.ajax({
+                        url : "/DelectRuzhujilu/" + $("#txt").val(),
+                        type : "delete",
+                        success : function(data){
+                            if(data.result == 1){
+                                alert("退房成功");
+                                $.post("/addShengyushu/",{
+                                    leixing : $(".leixing").html(),
+                                },function(data){
+                                    if (data.s==1){
+                                        // alert("成功")
+                                        $("input[type=text]").val("");
+                                        $("span").html(" ")
+                                    }
+                                })
+                            }else{
+                                alert("服务器错误！");
+                            }
+                        }
+                    })
+            }else if(data.s == -2){
+                alert("服务器错误！请联系管理员，怎么联系我也不知道！");
+            }else if(data.s==-1){
+                alert("该房间还没有入住")
+            }
+        })
+    })
+</script>
+</body>
+</html>

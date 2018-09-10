@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录页面</title>
+</head>
+<style>
+    *{
+        padding:0;
+        margin:0;
+    }
+    header{
+        background:black;
+        color:white;
+        height:50px;
+        text-align: center;
+    }
+    .container{
+        width:700px;
+        height:400px;
+        position: relative;
+        left:50%;
+        top:50%;
+        margin-top:200px;
+        margin-left:-350px;
+    }
+    .cont{
+        width:600px;
+        height:300px;
+        padding:50px;
+    }
+    .footer{
+        width:600px;
+        height:300px;
+        position: relative;
+        left:50%;
+        top:50%;
+        margin-top:-50px;
+        margin-left:-300px;
+    }
+    .footer input{
+        width:70px;
+        height:30px;
+
+    }
+    #denglu{
+        float:left;
+        background-color:forestgreen;
+        color:white;
+        margin-right:112px;
+    }
+    .bj{
+        color:white;
+        width:100%;
+        height:100%;
+        position: absolute;
+       top:-47px;
+        left:0;
+        background:url(http://pic35.photophoto.cn/20150525/0016028028829231_b.jpg) no-repeat 50%;
+    }
+</style>
+<body>
+ <header>
+     <h2 style="color:white;line-height:45px;">缤客酒店管理系统</h2>
+ </header>
+
+ <div class="bj">
+     <form action="">
+         <div class="container">
+             <div class="cont">
+                 <div>
+                     用 户 名：<input type="text"  style="width:80%;height:30px;padding-left:20px;" name="yonghuming">
+                 </div>
+                 <div style="margin-top:20px;">
+                     密&nbsp;&nbsp;&nbsp;&nbsp;  码：<input type="password" style="width:80%;height:30px;padding-left:21px;" name="mima">
+                 </div>
+                 <span style="color:#cccccc;margin-top:20px;display: block;">请输入用户名和密码</span>
+             </div>
+         </div>
+         <div class="footer">
+             <div style="margin:0 auto;width:230px;"><a href="#"><input type="button" value="登录" id="denglu"></a></div>
+             <div><input type="button" value="取消"></div>
+         </div>
+     </form>
+ </div>
+
+ <script src="js/jquery-1.12.3.min.js"></script>
+ <script>
+     $("#denglu").click(function(){
+         var str=$("form").serialize();
+         $.post("/checklogin",str,function(data){
+             if(data.result==1){
+                 alert("登陆成功！");
+                 window.location='/Gindex'
+                 return false
+             }
+             if(data.result==-2){
+                 alert("密码错误！");
+             }
+             if(data.result==-1){
+                 alert("无用户");
+             }
+         })
+     })
+     var  windowH=document.documentElement.clientHeight||document.body.clientHeight;
+     $(".bj").css("backgroundSize","100%"+windowH+"px");
+ </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员面板</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+</head>
+<style>
+    #bj{
+        color:white;
+        width:100%;
+        height:86%;
+        position: absolute;
+        top:115px;
+        left:0;
+        background:url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4117190602,4177228666&fm=27&gp=0.jpg) no-repeat 50%;
+    }
+</style>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">缤客酒店管理系统面板</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="/">缤客酒店</a></li>
+                <li><a href="/kehu">客户页面</a></li>
+                <li><a href="/Inlogin">管理员页面</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">欢迎进入缤客酒店！</h1>
+
+        </div>
+        <div id="bj">
+
+        </div>
+
+    </div>
+</div>
+
+<script src="js/jquery-1.12.3.min.js"></script>
+
+<script>
+    var  windowH=document.documentElement.clientHeight||document.body.clientHeight;
+    $("#bj").css("backgroundSize","100%"+windowH+"px");
+</script>
+</body>
+</html>
